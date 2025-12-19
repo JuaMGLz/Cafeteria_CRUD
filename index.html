@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafetería - Panel de Control</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Administración de Cafetería</h1>
+        <nav class="contenedor-nav">
+            <button class="boton-nav activo" onclick="cambiarTab(event, 'seccion-ventas')">Panel de Ventas</button>
+            <button class="boton-nav" onclick="cambiarTab(event, 'seccion-productos')">Inventario</button>
+            <button class="boton-nav" onclick="cambiarTab(event, 'seccion-clientes')">Clientes</button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="seccion-ventas" class="contenido-tab activo">
+            <div class="tarjeta">
+                <h2 id="titulo-ventas">Nueva Venta</h2>
+                <form id="form-venta">
+                    <input type="hidden" id="vta_id">
+                    <label>Cliente:</label>
+                    <select id="select-cliente" required>
+                        <option value="">Cargando clientes...</option>
+                    </select>
+
+                    <label>Producto:</label>
+                    <select id="select-producto" required onchange="actualizarAvisoStock()"></select>
+                    <small id="aviso-stock" class="texto-aviso"></small>
+
+                    <label>Cantidad:</label>
+                    <input type="number" id="vta_cantidad" min="1" required>
+                    
+                    <button type="submit" id="btn-venta" class="btn-accion">Procesar Venta</button>
+                    <button type="button" id="btn-cancelar-vta" class="btn-cancelar" style="display:none;" onclick="resetearFormVenta()">Cancelar Edición</button>
+                </form>
+
+                <h3>Historial de Ventas</h3>
+                <div class="scroll-tabla">
+                    <table id="tabla-ventas">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Cliente</th>
+                                <th>Producto</th>
+                                <th>Total</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="seccion-productos" class="contenido-tab">
+            <div class="tarjeta">
+                <h2 id="titulo-form-producto">Gestión de Inventario</h2>
+                <form id="form-producto">
+                    <input type="hidden" id="prod_id">
+                    <input type="text" id="prod_nombre" placeholder="Nombre del producto" required>
+                    <input type="text" id="prod_desc" placeholder="Descripción">
+                    <input type="number" step="0.01" id="prod_precio" placeholder="Precio" required>
+                    <input type="number" id="prod_stock" placeholder="Stock" required>
+                    <div class="fila-botones">
+                        <button type="submit" id="btn-guardar-prod" class="btn-accion">Guardar Producto</button>
+                        <button type="button" id="btn-cancelar-prod" class="btn-cancelar" style="display:none;" onclick="resetearFormProducto()">Cancelar</button>
+                    </div>
+                </form>
+
+                <h3>Lista de Productos</h3>
+                <div class="scroll-tabla">
+                    <table id="tabla-productos">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Descripción</th> <th>Precio</th>
+                                <th>Stock</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="seccion-clientes" class="contenido-tab">
+            <div class="tarjeta">
+                <h2 id="titulo-form-cliente">Registro de Clientes</h2>
+                <form id="form-cliente">
+                    <input type="hidden" id="cli_id">
+                    <input type="text" id="cli_nombre" placeholder="Nombre completo" required>
+                    <input type="email" id="cli_email" placeholder="Email">
+                    <input type="text" id="cli_telefono" placeholder="Teléfono">
+                    <div class="fila-botones">
+                        <button type="submit" id="btn-guardar-cli" class="btn-accion">Guardar Cliente</button>
+                        <button type="button" id="btn-cancelar-cli" style="display:none;" onclick="resetearFormCliente()">Cancelar</button>
+                    </div>
+                </form>
+
+                <h3>Lista de Clientes</h3>
+                <div class="scroll-tabla">
+                    <table id="tabla-clientes">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Teléfono</th> <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
